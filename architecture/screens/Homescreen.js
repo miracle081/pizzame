@@ -47,7 +47,7 @@ export function HomeScreen() {
             </View>
 
             {/* Baker's Choice */}
-            <View style={styles.bakerChoice}>
+            <View style={styles.bakerChoice}i>
                 <Text style={styles.popularHeadingText}>Baker's Choice</Text>
                 <FlatList data={data.bakersChoice} renderItem={({ item }) => {
                     return (

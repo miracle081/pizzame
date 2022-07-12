@@ -9,7 +9,7 @@ export function Intro () {
                     <Text styl={styles.brandText}>Pezzame</Text>
                     <Image source={require('../../assets/images/pizza.png')} style={styles.brandImg}/>
                 </View>
-                <Button mode="contained" style={styles.btn}>Explore Pizzame</Button>
+                <Button mode="contained" color='#FF9F45' onPress={ () => navigation.navigate('Home') } style={styles.btn}>Explore Pizzame</Button>
             </ImageBackground>
         </View>
     )
