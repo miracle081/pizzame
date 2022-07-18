@@ -1,32 +1,74 @@
-import { View, StyleSheet, Text, Image, Button } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faEarth, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faAnglesRight, faPhone, faMale, faFemale } from "@fortawesome/free-solid-svg-icons";
+import { useFonts, Overpass_100Thin } from "@expo-google-fonts/overpass";
+import { Overpass_400Regular } from "@expo-google-fonts/overpass";
+import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 
 export function Profile() {
+    let [FontLoaded] = useFonts({
+        Overpass_100Thin,
+        Overpass_400Regular,
+        Pacifico_400Regular
+    });
     return (
         <View style={styles.container}>
             <View style={styles.bio}>
-                <Image />
-                <Text>Jack Robinson</Text>
-                <Text>meetj</Text>
-                <Text>Edit Details </Text>
+                <View>
+                    <Image style={styles.profilePic} source={require('../../assets/images/user1.JPG')} />
+                    <TouchableOpacity style={styles.Editcam}>
+                        <FontAwesomeIcon icon={faCamera} style={styles.cam} size={15} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={styles.userName} >Miracle Obafemi</Text>
+                <Text style={{ marginTop: 5, color: 'white', fontSize: 17, fontFamily:'Overpass_100Thin' }}>miracleobafemi@gmail.com</Text>
+                <TouchableOpacity style={styles.editBtn}>
+                    <FontAwesomeIcon icon={faUserEdit} size={17}/>
+                    <Text  style={styles.editText}> Edit Profile</Text>
+                </TouchableOpacity>
             </View>
 
-            <View style={styles.details}>
-                <View style={styles.city}>
-                    {/* icon */}
-                    <Text style={styles.cityText}>Ikeja, Lagos</Text>
+            <View style={styles.container2}>
+                <View style={styles.details}>
+                    <View style={styles.con}>
+                        <FontAwesomeIcon icon={faPhone} size={25} style={styles.icon} />
+                        <Text style={styles.cityText}>08157382954</Text>
+                    </View>
+                    <View style={styles.con}>
+                        <FontAwesomeIcon icon={faEarth} size={25} style={styles.icon} />
+                        <Text style={styles.cityText}>Ikeja, Lagos</Text>
+                    </View>
+                    <View style={styles.con}>
+                        <FontAwesomeIcon icon={faLocationDot} size={25} style={styles.icon} />
+                        <Text style={styles.cityText}>62 Gado Nasko Road, Kubwa,</Text>
+                    </View>
+                    <View style={styles.con2}>
+                        <View style={{flexDirection:'row',}}>
+                            <FontAwesomeIcon icon={faMale} size={25} style={styles.icon} />
+                            <FontAwesomeIcon icon={faFemale} size={25} style={styles.icon} />
+                        </View>
+                        <Text style={styles.cityText}>Male</Text>
+                    </View>
                 </View>
-                <View style={styles.address}>
-                    {/* icon */}
-                    <Text style={styles.addressText}>62 Gado Nasko Road, Kubwa,</Text>
-                </View>
-            </View>
-            
-            <View style={styles.passwordChange}>
-                <View style={styles.subject}>
-                    {/* icon */}
-                    <Text>Change Password</Text>
-                </View>
-                {/* Icon pointing right */}
+
+                <TouchableOpacity style={styles.passwordChange}>
+                    <View style={{flexDirection:'row '}} >
+                        <FontAwesomeIcon icon={faStar} size={25} style={styles.icon}/>
+                        <Text style={styles.cityText}>favourites</Text>
+                    </View>
+                    <FontAwesomeIcon icon={faAnglesRight} size={26} style={styles.icon} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.passwordChange}>
+                    <View style={{flexDirection:'row '}} >
+                        <FontAwesomeIcon icon={faLock} size={25} style={styles.icon} color='red'/>
+                        <Text style={[styles.cityText,{color:'red'}]}>Change Password</Text>
+                    </View>
+                    <FontAwesomeIcon icon={faAnglesRight} size={26} style={styles.icon} />
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -34,6 +76,92 @@ export function Profile() {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#513252',
+    },
+    bio: {
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 20
+    },
+    profilePic: {
+        width: 160,
+        height: 160,
+        borderWidth: 4,
+        borderColor: 'white',
+        borderRadius: 80,
+    },
+    userName: {
+        fontSize: 26,
+        letterSpacing:2,
+        color: 'white',
+        fontFamily:'Pacifico_400Regular'
+    },
+    Editcam: {
+        position: 'absolute',
+        bottom: 0,
+        right: 10,
+        borderColor: 'white',
+        borderWidth: 2,
+        borderRadius: 50,
+        padding: 5,
+        backgroundColor: 'blue'
+    },
+    editText:{
+        fontWeight:'bold',
+        fontFamily:'Overpass_400Regular'
+        
+    },
+    cam: {
+        color: 'white',
+    },
+    container2: {
+        backgroundColor: 'white',
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
+        height: '100vh',
+        paddingTop: 30,
+    },
+    editBtn: {
+        flexDirection: 'row',
+        // borderColor: 'gray',
+        // borderWidth: 2,
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        marginVertical: 5,
+        backgroundColor: 'white'
+    },
+    details: {
 
-    }
+    },
+    con: {
+        flexDirection: 'row',
+        padding: 15,
+        borderBottomColor: 'rgba(128, 128, 128, 0.336)',
+        borderBottomWidth: 1,
+    },
+    con2: {
+        flexDirection: 'row',
+        padding: 15,
+        borderBottomColor: 'rgba(128, 128, 128, 0.336)',
+        borderBottomWidth: 5,
+    },
+    cityText: {
+        fontSize: 20,
+        paddingStart: 5,
+        opacity:0.8,
+        fontFamily:'Overpass_400Regular'
+    },
+    icon:{
+        opacity:0.7,
+    },
+    passwordChange:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        padding: 15,
+        color:'white',
+        borderBottomColor: 'rgba(128, 128, 128, 0.336)',
+        borderBottomWidth: 1,
+    },
+
 })

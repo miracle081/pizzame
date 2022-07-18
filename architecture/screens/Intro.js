@@ -1,25 +1,32 @@
-import { View, Image, Text, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
-import { Button } from "react-native-paper";
+import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
+import { Button } from 'react-native-paper';
 
-export function Intro () {
-    return(
+export function Intro ({navigation}) {
+    return (
         <View style={styles.container}>
-            <ImageBackground style={styles.imgBG} source={require('../../assets/images/pizza_intro.jpg')}>
+            
+
+            <ImageBackground source={require('../../assets/images/pizza_intro.jpg')} style={styles.imgBg} resizeMode='cover'>
                 <View style={styles.brand}>
-                    <Text styl={styles.brandText}>Pezzame</Text>
-                    <Image source={require('../../assets/images/pizza.png')} style={styles.brandImg}/>
+                    <Image source={require('../../assets/images/pizza.png')} style={styles.brandImg} />
+                    <Text style={styles.brandText}>PizzaMe</Text>
                 </View>
-                <Button mode="contained" color='#FF9F45' onPress={ () => navigation.navigate('Home') } style={styles.btn}>Explore Pizzame</Button>
+
+                <Button mode='contained' color='#FF9F45' style={styles.btn} onPress={ () => navigation.navigate('Home') }>
+                    Explore PizzaMe
+                </Button>
             </ImageBackground>
+
+        
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    imgBG:{
-        height:'100%',
+    imgBg:{
+        height: '100vh',
         width:'100%',
-        justifyContent:'space-between',
+        justifyContent:'space-between'
     },
     brand:{
         flexDirection:'row',
@@ -28,19 +35,18 @@ const styles = StyleSheet.create({
         marginTop:20
     },
     brandImg:{
-        width:40,
+        width: 40,
         height:40,
-        marginRight:5,
-    },brandText:{
+        marginRight:5
+    },
+    brandText:{
         fontSize:32,
-        color:'white',
-        fontWeight:'bold',
+        color:'#fff',
+        fontWeight:'bold'
     },
     btn:{
         paddingVertical:18,
         marginHorizontal:20,
-        marginBottom:10
-        
+        marginBottom: 20
     }
-
 })

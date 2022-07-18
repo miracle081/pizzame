@@ -1,17 +1,23 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { Card, TextInput, Title, Paragraph, Button } from 'react-native-paper';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useFonts, Pacifico_400Regular, } from '@expo-google-fonts/Pacifico';
 import { Overpass_100Thin, Overpass_200ExtraLight, Overpass_400Regular } from '@expo-google-fonts/OverPass';
 import { Header } from '../components/Header';
-import { Menu } from '../components/Menu';
+import { About } from './About';
+import { History } from './History';
+import { Customize } from './Customize';
+import { Profile } from './Profile';
+import { Notification } from './Notification';
+import { Ionicons } from '@expo/vector-icons';
 
 const data = {
     favourites: [
-        { name: 'mozzarella', id: '1', thumbnail: 'https://cdn-icons-png.flaticon.com/512/1404/1404945.png' },
-        { name: 'parmesan', id: '2', thumbnail: 'https://cdn-icons-png.flaticon.com/512/432/432339.png' },
-        { name: 'provolone', id: '3', thumbnail: 'https://cdn-icons-png.flaticon.com/512/4039/4039232.png' },
-        { name: 'blue cheese', id: '4', thumbnail: 'https://cdn-icons-png.flaticon.com/512/1699/1699852.png' },
-        { name: 'broccoli', id: '5', thumbnail: 'https://cdn-icons-png.flaticon.com/512/1384/1384727.png' }
+        { name: 'mozzarella', id: '1', price: '8,450', rating: 4.3, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1404/1404945.png' },
+        { name: 'parmesan', id: '2', price: '7,250', rating: 2.4, thumbnail: 'https://cdn-icons-png.flaticon.com/512/432/432339.png' },
+        { name: 'provolone', id: '3', price: '6,250', rating: 3.7, thumbnail: 'https://cdn-icons-png.flaticon.com/512/4039/4039232.png' },
+        { name: 'blue cheese', id: '4', price: '4,950', rating: 4.5, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1699/1699852.png' },
+        { name: 'broccoli', id: '5', price: '3,050', rating: 1.3, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1384/1384727.png' }
     ],
     bakersChoice: [
         { name: 'pancetta', id: '6', note: 'Made with the finest Italian ingredients', thumbnail: 'https://images.pexels.com/photos/1146760/pexels-photo-1146760.jpeg' },
@@ -22,7 +28,7 @@ const data = {
     ]
 }
 
-export function HomeScreen() {
+function HomeScreen({ navigation }) {
     let [FontLoaded] = useFonts({
         Pacifico_400Regular,
         Overpass_100Thin,
@@ -38,7 +44,14 @@ export function HomeScreen() {
                 <Text style={styles.popularHeadingText}>Popular Topins</Text>
                 <FlatList data={data.favourites} renderItem={({ item }) => {
                     return (
-                        <TouchableOpacity style={styles.popularItem}>
+                        <TouchableOpacity style={styles.popularItem} onPress={() => {
+                            navigation.navigate('Popular', {
+                                pizzaImg: item.thumbnail,
+                                pizzaName: item.name,
+                                pizzaRating: item.rating,
+                                pizzaPrice: item.price
+                            })
+                        }}>
                             <Image source={{ uri: item.thumbnail }} style={styles.signinIcon} />
                             <Text style={styles.popularItemText}>{item.name}</Text>
                         </TouchableOpacity>
@@ -47,7 +60,7 @@ export function HomeScreen() {
             </View>
 
             {/* Baker's Choice */}
-            <View style={styles.bakerChoice}i>
+            <View style={styles.bakerChoice} i>
                 <Text style={styles.popularHeadingText}>Baker's Choice</Text>
                 <FlatList data={data.bakersChoice} renderItem={({ item }) => {
                     return (
@@ -62,8 +75,48 @@ export function HomeScreen() {
                     );
                 }} key={({ item }) => { item.id }} />
             </View>
-            <Menu />
         </View>
+    )
+}
+
+const Tab = createBottomTabNavigator();
+
+export function Home() {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'HomeScreen') {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } 
+                    else if (route.name === 'History') {
+                        iconName = focused ? 'md-file-tray-stacked' : 'md-file-tray-stacked-outline';
+                    }
+                    else if (route.name === 'Customize') {
+                        iconName = focused ? 'ios-logo-codepen' : 'ios-logo-codepen';
+                    }
+                    else if (route.name === 'Profile') {
+                        iconName = focused ? 'person-circle' : 'person-circle-outline';
+                    }
+                    else if (route.name === 'Notification') {
+                        iconName = focused ? 'notifications-circle' : 'notifications-circle-outline';
+                    }
+
+                    // You can return any component that you like here!
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: '#F76E11',
+                tabBarInactiveTintColor: 'gray',
+            })}
+        >
+            <Tab.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} />
+            <Tab.Screen name='History' component={History} />
+            <Tab.Screen name='Customize' component={Customize} />
+            <Tab.Screen name='Profile' component={Profile} />
+            <Tab.Screen name='Notification' component={Notification} />
+        </Tab.Navigator>
     )
 }
 
