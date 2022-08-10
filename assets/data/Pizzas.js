@@ -1,3 +1,26 @@
+export const pizzaSizes =[
+    {
+        id:1,
+        sizeName:'Single',
+        fee:1500
+    },
+    {
+        id:2,
+        sizeName:'Couple',
+        fee:2700
+    },
+    {
+        id:3,
+        sizeName:'Friends',
+        fee:4000
+    },
+    {
+        id:4,
+        sizeName:'Family',
+        fee:5000
+    },
+]
+
 export const pizzas = [
     {   
         id:1,

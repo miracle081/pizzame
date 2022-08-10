@@ -1,4 +1,4 @@
-import { Text, View, Image, FlatList, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
+import { Text, View, Image, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
@@ -47,7 +47,7 @@ export function History() {
                             </View>
                             <Text style={styles.date}>{item.date}</Text>
                         </View>
-                        <TouchableOpacity style={[styles.xmark,{ position:'absolute', right:0,top:-5,}]}>
+                        <TouchableOpacity style={[styles.xmark, { position:'absolute', right:0,top:-5,}]}>
                             <FontAwesomeIcon icon={faXmark} size={15} style={{ opacity:0.6, }} />
                         </TouchableOpacity>
                     </View>
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     },
     pName: {
         fontSize: 25,
-        // fontWeight: 'bold',
         textTransform:'capitalize',
         fontFamily:'Pacifico_400Regular'
     },

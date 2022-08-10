@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from "react-native"
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { faStar } from "@fortawesome/free-solid-svg-icons"
-import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+// import { faStar } from "@fortawesome/free-solid-svg-icons"
+// import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { Rating } from "@mui/material";
+import {Theme} from "../thems/themes"
 
 
 export function Popular({ route, navigation }) {

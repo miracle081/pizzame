@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
 import { Button } from 'react-native-paper';
+import {Theme} from "../thems/themes"
 
 export function Intro ({navigation}) {
     return (
@@ -32,21 +33,20 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        marginTop:20
+        marginTop:Theme.points[3]*2
     },
     brandImg:{
-        width: 40,
-        height:40,
+        width: Theme.points[3]*4,
+        height:Theme.points[3]*4,
         marginRight:5
     },
     brandText:{
-        fontSize:32,
+        fontSize:(Theme.points[3]*3 ) + 4,
         color:'#fff',
-        fontWeight:'bold'
+        fontWeight:Theme.fonts.fontWeights.bold
     },
     btn:{
-        paddingVertical:18,
-        marginHorizontal:20,
-        marginBottom: 20
+        marginHorizontal:Theme.points[3] * 2,
+        marginBottom: Theme.points[3] * 2
     }
 })

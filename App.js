@@ -1,16 +1,16 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { AuthNaviator } from './architecture/components/AuthNavigator.js';
-import { History } from './architecture/screens/History.js'; 
+// import { AuthNaviator } from './architecture/components/AuthNavigator.js';
+import { Order } from './architecture/screens/Order';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      {/* <NavigationContainer>
-        <AuthNaviator />
-      </NavigationContainer> */}
-      <History />
+      <NavigationContainer>
+        {/* <AuthNaviator /> */}
+      </NavigationContainer>
+      <Order/>
       <ExpoStatusBar style="auto" />
     </SafeAreaView>
   );

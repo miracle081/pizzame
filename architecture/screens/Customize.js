@@ -1,19 +1,49 @@
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { pizzas } from "../../assets/data/Pizzas";
 import { useState } from "react";
+import { pizzaSizes } from "../../assets/data/Pizzas";
+import { Button } from "react-native-paper";
+import {Theme} from "../thems/themes"
+import { Order } from "./Order";
 
+export function Customize({navigation,route}) {
+    const [selected, setSelected] = useState({});
+    const [total, setTotal] = useState(0);
+    const [pizzaNames, setpizzaNames] = useState('Pizza Name');
+    const [ingredients, setIngredients] = useState([]);
+    const [sizes, setSizes] = useState('');
 
-export function Customize() {
-    const [selected, setSelected] = useState([])
+    function Procced (){ 
+        if(total > 0){
+            return <Button mode="outlined" color="white" style={{marginTop:20, padding:20, backgroundColor:'#064635'}}
+            onPress={()=>{
+                navigation.navigate('Order',{
+                    orderTotal: total,
+                    orderpizzaName : pizzaNames,
+                    orderPizzaIngredients: ingredients,
+                    orderSize: sizes
+                });
+            }}
+            >Continue to dilivear</Button>
+            
+        }
+    }
+
     return (
         <View style={styles.continer}>
             <Text style={styles.heading}>Customize Your Order</Text>
 
-            {/*  */}
+            <View style={styles.billing}>
+                <Text style={styles.pizzabillingTitle}>PIzza Total</Text>
+                <Text style={styles.pizzabillingValue}>₦{total}</Text>
+                <Text style={styles.pizzabillingTitle}>{pizzaNames} with ingredients ({ingredients}), Size: {sizes}</Text>
+            </View>
+
+            {/*  selected pizzza*/}
             <ScrollView horizontal>
                 {
                     Object.values(pizzas).map(singlePizza => (
-                        <TouchableOpacity style={styles.selectedPizza} onPress={() => { setSelected(singlePizza.ingredients) }} >
+                        <TouchableOpacity style={styles.selectedPizza} onPress={() => { setSelected(singlePizza.ingredients); setpizzaNames(singlePizza.pizzaName)}} >
                             <Text style={styles.selectTitile}>{singlePizza.pizzaName}</Text>
                         </TouchableOpacity>
                     ))
@@ -26,12 +56,34 @@ export function Customize() {
             <View style={styles.pizzas}>
                 {
                     Object.values(selected).map(item => (
-                        <TouchableOpacity style={[styles.pizza, { marginRight: Math.round(Math.random() * 100), marginLeft: Math.round(Math.random() * 100), }]}>
+                        <TouchableOpacity style={[styles.pizza, { marginRight: Math.round(Math.random() * 100), marginLeft: Math.round(Math.random() * 100), }]}
+                            onPress={()=>{
+                                setTotal(total + item.fee);
+                                setIngredients([ingredients,...item.ingreName,', '])
+                            }}
+                        >
                             <Text style={styles.pizzaTitle}>{item.ingreName}</Text>
                         </TouchableOpacity>
                     ))
                 }
             </View>
+
+            {/* Available sizes */}
+            <View style={styles.sizes}>
+                {
+                    Object.values(pizzaSizes).map(item => (
+                        <TouchableOpacity style={styles.sizesTouch}
+                            onPress={()=>{
+                                setTotal(total + item.fee);
+                                setSizes(item.sizeName)
+                            }}
+                        >
+                            <Text style={styles.sizeTitle}>{item.sizeName}</Text>
+                        </TouchableOpacity>
+                    ))
+                }
+            </View>
+           {Procced()}
         </View>
     )
 }
@@ -71,5 +123,34 @@ const styles = StyleSheet.create({
     selectTitile: {
         color: 'white',
         fontWeight: 'bold',
+    },
+    sizes: {
+        margin: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    sizesTouch: {
+        borderWidth: 2,
+        borderColor: '#519259',
+        padding: 8,
+        borderRadius: 10,
+    },
+    sizeTitle: {
+        color: '#064635',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: "center",
+    },
+    billing: {
+        backgroundColor: '#cccccc',
+        padding: 12,
+        marginVertical: 20,
+        textAlign: 'center'
+    },
+    pizzabillingTitle: {
+        color: 'gray',
+    },
+    pizzabillingValue: {
+        fontSize: 28,
     }
 })

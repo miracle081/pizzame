@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useFonts, Pacifico_400Regular, } from '@expo-google-fonts/Pacifico';
 import { Overpass_100Thin, Overpass_200ExtraLight, Overpass_400Regular } from '@expo-google-fonts/OverPass';
 import { Header } from '../components/Header';
-import { About } from './About';
 import { History } from './History';
 import { Customize } from './Customize';
 import { Profile } from './Profile';
@@ -130,8 +129,14 @@ const styles = StyleSheet.create({
         height: 60,
     },
     search: {
-        marginVertical: 20,
-        backgroundColor: '#FAEEE0',
+        marginVertical: Theme.points[3],
+        backgroundColor: '#fff',
+        fontSize:Theme.points[3],
+        paddingVertical:Theme.points[3],
+        paddingLeft:Theme.points[3],
+        borderRadius:50,
+        borderWidth:1,
+        borderColor:Theme.color.ui.secondary,
     },
 
     popularItem: {

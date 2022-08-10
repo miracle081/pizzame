@@ -8,6 +8,7 @@ import { faLock, faAnglesRight, faPhone, faMale, faFemale } from "@fortawesome/f
 import { useFonts, Overpass_100Thin } from "@expo-google-fonts/overpass";
 import { Overpass_400Regular } from "@expo-google-fonts/overpass";
 import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
+import {Theme} from "../thems/themes"
 
 export function Profile() {
     let [FontLoaded] = useFonts({
@@ -80,8 +81,8 @@ const styles = StyleSheet.create({
     },
     bio: {
         alignItems: 'center',
-        padding: 10,
-        borderRadius: 20
+        padding: Theme.points[3],
+        borderRadius: Theme.points[3] + Theme.points[3]
     },
     profilePic: {
         width: 160,
@@ -98,8 +99,8 @@ const styles = StyleSheet.create({
     },
     Editcam: {
         position: 'absolute',
-        bottom: 0,
-        right: 10,
+        bottom: Theme.points[3],
+        right: Theme.points[3] + Theme.points[3],
         borderColor: 'white',
         borderWidth: 2,
         borderRadius: 50,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue'
     },
     editText:{
-        fontWeight:'bold',
+        fontWeight:Theme.fonts.fontWeights.bold,
         fontFamily:'Overpass_400Regular'
         
     },
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
         // borderColor: 'gray',
         // borderWidth: 2,
         paddingVertical: 7,
-        paddingHorizontal: 10,
-        borderRadius: 10,
+        paddingHorizontal: Theme.points[3],
+        borderRadius: Theme.points[3],
         marginVertical: 5,
         backgroundColor: 'white'
     },
