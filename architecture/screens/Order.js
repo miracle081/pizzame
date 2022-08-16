@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Button } from "react-native-paper";
 import { Theme } from "../thems/themes";
 import { db } from "../../services/firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, updateDoc } from "firebase/firestore";
+
 
 export function Order({ route }) {
     const { orderTotal, orderpizzaName, orderPizzaIngredients, orderSize } = route.params
@@ -29,6 +30,16 @@ export function Order({ route }) {
             timestamp: nowTimeStamp,
         })
     }
+
+    function UpdateDocument (){
+        updateDoc(doc,(db,'purchases','JRgFlEYcnQ6UY3onMTAa'),{
+            firstName:'Daniel',
+            lastName:'Micheal'
+        })
+        .then(() =>{console.log('Record updated');})
+        .catch(error =>{console.log('Error massage',error);})
+    }
+
     return (
         
         <View style={styles.container}>

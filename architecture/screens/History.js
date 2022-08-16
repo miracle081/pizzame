@@ -1,9 +1,12 @@
 import { Text, View, Image, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import { Overpass_400Regular } from "@expo-google-fonts/overpass";
 import { RozhaOne_400Regular } from "@expo-google-fonts/rozha-one";
+import { db } from "../../services/firebase";
+import {onSnapshot, doc} from 'firebase';
 
 const data = {
     historys: [
@@ -23,6 +26,12 @@ const data = {
     ],
 }
 export function History() {
+    useEffect(()=>{
+        onSnapshot(doc(db,'purchases','JRgFlEYcnQ6UY3onMTAa'),(doc)=>{
+            console.log(doc.date());
+        })
+    })
+
     let [FontLoaded] = useFonts({
         Pacifico_400Regular,
         Overpass_400Regular,
