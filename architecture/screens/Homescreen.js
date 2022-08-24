@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { Card, TextInput, Title, Paragraph, Button } from 'react-native-paper';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useFonts, Pacifico_400Regular, } from '@expo-google-fonts/Pacifico';
-import { Overpass_100Thin, Overpass_200ExtraLight, Overpass_400Regular } from '@expo-google-fonts/OverPass';
-import { Header } from '../components/Header';
 import { History } from './History';
 import { Customize } from './Customize';
 import { Profile } from './Profile';
@@ -28,15 +27,18 @@ const data = {
 }
 
 function HomeScreen({ navigation }) {
-    let [FontLoaded] = useFonts({
-        Pacifico_400Regular,
-        Overpass_100Thin,
-        Overpass_200ExtraLight,
-        Overpass_400Regular
-    });
     return (
         <View style={styles.container}>
-            <Header />
+
+            <View style={styles.header}>
+                <View style={styles.brand}>
+                    <Text style={styles.brandName}>Pizzame</Text>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
+                    <FontAwesomeIcon icon={faArrowRightToBracket} size={36} styles={{ marginTop: 30 }} />
+                </TouchableOpacity>
+            </View>
+
             <TextInput placeholder='search for a potin' style={styles.search} />
 
             <View style={styles.popular}>
@@ -89,7 +91,7 @@ export function Home() {
 
                     if (route.name === 'HomeScreen') {
                         iconName = focused ? 'home' : 'home-outline';
-                    } 
+                    }
                     else if (route.name === 'History') {
                         iconName = focused ? 'md-file-tray-stacked' : 'md-file-tray-stacked-outline';
                     }
@@ -124,6 +126,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         flex: 1
     },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingTop: Theme.points[2]
+    },
+    brand: {
+        flexDirection: 'row',
+        fontSize: 30,
+    },
+    brandName: {
+        fontSize: Theme.points[5],
+        fontWeight: 'bold',
+    },
     signinIcon: {
         width: 60,
         height: 60,
@@ -131,12 +146,12 @@ const styles = StyleSheet.create({
     search: {
         marginVertical: Theme.points[3],
         backgroundColor: '#fff',
-        fontSize:Theme.points[3],
-        paddingVertical:Theme.points[3],
-        paddingLeft:Theme.points[3],
-        borderRadius:50,
-        borderWidth:1,
-        borderColor:Theme.color.ui.secondary,
+        fontSize: Theme.points[3],
+        paddingVertical: Theme.points[3],
+        paddingLeft: Theme.points[3],
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: Theme.color.ui.secondary,
     },
 
     popularItem: {
@@ -153,7 +168,6 @@ const styles = StyleSheet.create({
     },
     popularHeadingText: {
         fontSize: 30,
-        fontFamily: ' Overpass_200ExtraLight',
         marginVertical: 20,
     }
 

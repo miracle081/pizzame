@@ -5,17 +5,9 @@ import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faEarth, faStar } from "@fortawesome/free-solid-svg-icons";
 import { faLock, faAnglesRight, faPhone, faMale, faFemale } from "@fortawesome/free-solid-svg-icons";
-import { useFonts, Overpass_100Thin } from "@expo-google-fonts/overpass";
-import { Overpass_400Regular } from "@expo-google-fonts/overpass";
-import { Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 import {Theme} from "../thems/themes"
 
 export function Profile() {
-    let [FontLoaded] = useFonts({
-        Overpass_100Thin,
-        Overpass_400Regular,
-        Pacifico_400Regular
-    });
     return (
         <View style={styles.container}>
             <View style={styles.bio}>
@@ -26,7 +18,7 @@ export function Profile() {
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.userName} >Miracle Obafemi</Text>
-                <Text style={{ marginTop: 5, color: 'white', fontSize: 17, fontFamily:'Overpass_100Thin' }}>miracleobafemi@gmail.com</Text>
+                <Text style={{ marginTop: 5, color: 'white', fontSize: 17, }}>miracleobafemi@gmail.com</Text>
                 <TouchableOpacity style={styles.editBtn}>
                     <FontAwesomeIcon icon={faUserEdit} size={17}/>
                     <Text  style={styles.editText}> Edit Profile</Text>
@@ -95,7 +87,6 @@ const styles = StyleSheet.create({
         fontSize: 26,
         letterSpacing:2,
         color: 'white',
-        fontFamily:'Pacifico_400Regular'
     },
     Editcam: {
         position: 'absolute',
@@ -109,7 +100,6 @@ const styles = StyleSheet.create({
     },
     editText:{
         fontWeight:Theme.fonts.fontWeights.bold,
-        fontFamily:'Overpass_400Regular'
         
     },
     cam: {
@@ -151,7 +141,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingStart: 5,
         opacity:0.8,
-        fontFamily:'Overpass_400Regular'
     },
     icon:{
         opacity:0.7,

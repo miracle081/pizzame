@@ -5,8 +5,6 @@ import {Theme} from "../thems/themes"
 export function Intro ({navigation}) {
     return (
         <View style={styles.container}>
-            
-
             <ImageBackground source={require('../../assets/images/pizza_intro.jpg')} style={styles.imgBg} resizeMode='cover'>
                 <View style={styles.brand}>
                     <Image source={require('../../assets/images/pizza.png')} style={styles.brandImg} />

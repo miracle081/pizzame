@@ -2,11 +2,9 @@ import { Text, View, Image, FlatList, StyleSheet, TouchableOpacity } from "react
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
-import { Overpass_400Regular } from "@expo-google-fonts/overpass";
-import { RozhaOne_400Regular } from "@expo-google-fonts/rozha-one";
+import { useFonts, RozhaOne_400Regular } from "@expo-google-fonts/rozha-one";
 import { db } from "../../services/firebase";
-import {onSnapshot, doc} from 'firebase';
+import { onSnapshot, doc } from "firebase/firestore";
 
 const data = {
     historys: [
@@ -24,17 +22,15 @@ const data = {
         { id: '12', date: '30/06/2022', name: 'mozzarella', price: '8,450', status: 'successful', color:'green', thumbnail: 'https://images.pexels.com/photos/1260968/pexels-photo-1260968.jpeg?auto=compress&cs=tinysrgb&w=600' },
         { id: '13', date: '19/05/2022', name: 'provolone', price: '6,250', status: 'successful', color:'green', thumbnail: 'https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=400' },
     ],
-}
+} 
 export function History() {
-    useEffect(()=>{
-        onSnapshot(doc(db,'purchases','JRgFlEYcnQ6UY3onMTAa'),(doc)=>{
-            console.log(doc.date());
-        })
-    })
+    // useEffect(()=>{
+    //     onSnapshot(doc(db,'purchases','JRgFlEYcnQ6UY3onMTAa'),(doc)=>{
+    //         console.log(doc.date());
+    //     })
+    // })
 
     let [FontLoaded] = useFonts({
-        Pacifico_400Regular,
-        Overpass_400Regular,
         RozhaOne_400Regular,
     });
     return (
@@ -99,7 +95,6 @@ const styles = StyleSheet.create({
     pName: {
         fontSize: 25,
         textTransform:'capitalize',
-        fontFamily:'Pacifico_400Regular'
     },
     price: {
         color: 'green',
@@ -118,7 +113,4 @@ const styles = StyleSheet.create({
         borderRadius:20,
         backgroundColor:'rgba(128, 128, 128, 0.499)'
     },
-    date:{
-        fontFamily:'Overpass_400Regular'
-    }
 })
