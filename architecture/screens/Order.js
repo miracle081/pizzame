@@ -1,93 +1,119 @@
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Alert, TextInput } from "react-native";
 import { useState } from "react";
+import { View,Text,StyleSheet,TextInput } from "react-native";
 import { Button } from "react-native-paper";
 import { Theme } from "../thems/themes";
-import { db } from "../../services/firebase";
-import { setDoc, doc, updateDoc } from "firebase/firestore";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
+export function Order ({navigation,route}){
+    const [firstName,setFirstName] = useState('');
+    const [lastName,setLastName] = useState('');
+    const [email,setEmail] = useState('');
+    const [phone,setPhone] = useState('');
+    const [latitude,setLatitude] = useState(0);
+    const [longitude,setLongitude] = useState(0);
+    const [addressDetails,setAddressDetails] = useState('');
 
-export function Order({ route }) {
-    const { orderTotal, orderpizzaName, orderPizzaIngredients, orderSize } = route.params
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [address, setAddress] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-
-    function create() {
-        const now = new Date();
-        const nowTimeStamp = now.getTime();
-        setDoc(doc(db, 'purchases', 'JRgFlEYcnQ6UY3onMTAa'), {
-            address: address,
-            email: email,
-            firstname: firstName,
-            ingredients: orderPizzaIngredients,
-            lastname: lastName,
-            phone: phone,
-            pizzaname: orderpizzaName,
-            price: orderTotal,
-            size: orderSize,
-            timestamp: nowTimeStamp,
-        })
-    }
-
-    function UpdateDocument (){
-        updateDoc(doc,(db,'purchases','JRgFlEYcnQ6UY3onMTAa'),{
-            firstName:'Daniel',
-            lastName:'Micheal'
-        })
-        .then(() =>{console.log('Record updated');})
-        .catch(error =>{console.log('Error massage',error);})
-    }
+    const {
+        orderTotal,
+        orderPizzaName,
+        orderPizzaIngredients,
+        orderPizzaSize
+    } = route.params;
 
     return (
-        
-        <View style={styles.container}>
-            <TextInput placeholder='First name' style={styles.search}
-                onPress={(fname) => { setFirstName(fname) }}
-            />
-            <TextInput placeholder='Last name' style={styles.search}
-                onPress={(lname) => { setLastName(lname) }}
-            />
-            <TextInput placeholder='Phone number' style={styles.search}
-                onPress={(phone) => { setPhone(phone) }}
-            />
-            <TextInput placeholder='Email' style={styles.search}
-                onPress={(email) => { setEmail(email) }}
-            />
-            <TextInput placeholder='Address' style={styles.search}
-                onPress={(address) => { setAddress(address) }}
-            />
+        <View style={styles.parent}>
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <Text style={styles.title}>Place your order</Text>
+                    <TextInput placeholder="first name" style={styles.input}
+                    onChangeText={(fname) => setFirstName(fname)}
+                    />
+                    <TextInput placeholder="last name" style={styles.input}
+                    onChangeText={(lname) => setLastName(lname)}
+                    />
+                    <TextInput placeholder="email address" style={styles.input}
+                    onChangeText={(email) => setEmail(email)}
+                    />
+                    <TextInput placeholder="phone number" style={styles.input}
+                    onChangeText={(phone) => setPhone(phone)}
+                    />
+                </View>
+            </View>
 
-            <Button mode="outlined" color="white" style={{ marginTop: 20, padding: 20, backgroundColor: Theme.colors.ui.primary }}
-                onPress={create}
-            >
-                Complete Your Order
-            </Button>
+            <View style={styles.mapLocation}>
+                <Text style={{fontSize:18}}>Where do you want to receive your order?</Text>
+                <GooglePlacesAutocomplete 
+                placeholder='delivery address' 
+                query={{
+                    key:'AIzaSyAltTdZ5mgwXmOAdeDKLqKf8OfJovDQWBI',
+                    language:'en'
+                }}
+                fetchDetails={true}
+                enablePoweredByContainer={false}
+                onPress={(data,details = null) => {
+                    setLatitude(details.geometry.location.lat);
+                    setLongitude(details.geometry.location.lng);
+                    setAddressDetails(data.description)
+                }}
+                minLength={2}
+                />
+            </View>
+
+            <View style={styles.submit}>
+                <Button 
+                    mode="outlined" 
+                    color="white" 
+                    style={
+                        {marginTop:20,backgroundColor:Theme.colors.ui.primary}} 
+                        contentStyle={{paddingVertical:20}
+                    }
+                    onPress={() => navigation.navigate('Checkout',{
+                        price:orderTotal,
+                        pizzaName:orderPizzaName,
+                        ingredients:orderPizzaIngredients,
+                        size:orderPizzaSize,
+                        fname:firstName,
+                        lname:lastName,
+                        email:email,
+                        phone:phone,
+                        lat:latitude,
+                        lon:longitude,
+                        address:addressDetails
+                    })}
+                    >
+                    Complete Your Order
+                </Button>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 20
+   parent:{
+    flex:1,
+    padding:20
+   },
+    container:{
+        flex:2,
     },
-    search: {
-        marginVertical: Theme.points[2],
-        backgroundColor: 'rgba(128, 128, 128, 0.06)',
-        fontSize: Theme.points[3],
-        paddingVertical: Theme.points[4] + 5,
-        paddingLeft: Theme.points[3],
-        borderRadius: 50,
-        borderBottomWidth: 1,
-        borderBottomColor: Theme.colors.ui.secondary,
+    title:{
+        textAlign:'center',
+        fontSize:Theme.points[4],
+        marginBottom:Theme.points[2]
     },
+    input:{
+        paddingHorizontal:Theme.points[2],
+        paddingVertical:Theme.points[3],
+        borderWidth:1,
+        borderColor:Theme.colors.ui.secondary,
+        borderRadius:50,
+        marginBottom:Theme.points[2]
+    },
+    mapLocation:{
+        flex:3,
+        marginTop:50,
+    },
+    submit:{
+        flex:1
+    }
 })
-
-/*
-    Alert.alert(
-        'Order Confirmation',
-        'We have received your customized pizz order.'
-        [{ text: 'Accept', onPress: () => { console.log('Accept') } }, { text: 'Cancel' }]
-    )
-*/

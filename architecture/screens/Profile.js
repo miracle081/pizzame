@@ -12,7 +12,7 @@ export function Profile() {
         <View style={styles.container}>
             <View style={styles.bio}>
                 <View>
-                    <Image style={styles.profilePic} source={require('../../assets/images/user1.JPG')} />
+                    <Image style={styles.profilePic} source={require('../../assets/images/user1.jpg')} />
                     <TouchableOpacity style={styles.Editcam}>
                         <FontAwesomeIcon icon={faCamera} style={styles.cam} size={15} />
                     </TouchableOpacity>

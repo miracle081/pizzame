@@ -26,16 +26,16 @@ export function Signin({ navigation }) {
                 onChangeText={text => setPassword(text)}
             />
             <View style={styles.signinBar}>
-                <Text style={styles.signinText}>Don't have an account?</Text>
-                <TouchableOpacity onPress={()=> navigation.navgate('Signup')}>
-                    <Text style={styles.signinText}>Sing In</Text>
+                <Text style={styles.signinText}>Don't have an account? </Text>
+                <TouchableOpacity onPress={()=> navigation.navigate('SignUp')}>
+                    <Text style={styles.signinText}>Sign Up</Text>
                  </TouchableOpacity>
             </View>
             <Button mode="contained" 
             color={Theme.colors.ui.primary} 
             style={styles.btn}
             onPress={signinUser}
-            >Sign Up</Button>
+            >Sign In</Button>
         </View>
     )
 

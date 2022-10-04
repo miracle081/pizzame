@@ -30,7 +30,7 @@ export function Customize({navigation,route}) {
     }
 
     return (
-        <View style={styles.continer}>
+        <ScrollView style={styles.continer}>
             <Text style={styles.heading}>Customize Your Order</Text>
 
             <View style={styles.billing}>
@@ -84,7 +84,7 @@ export function Customize({navigation,route}) {
                 }
             </View>
            {Procced()}
-        </View>
+        </ScrollView>
     )
 }
 

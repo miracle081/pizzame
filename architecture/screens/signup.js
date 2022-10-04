@@ -32,7 +32,7 @@ export function SignUp({ navigation }) {
             />
             <View style={styles.signinBar}>
                 <Text style={styles.signinText}>Already have an account?</Text>
-                <TouchableOpacity onPress={()=> navigation.navgate('Signin')}>
+                <TouchableOpacity onPress={()=> navigation.navigate('Signin')}>
                     <Text style={styles.signinText}>Create account</Text>
                 </TouchableOpacity>
             </View>
@@ -44,7 +44,7 @@ export function SignUp({ navigation }) {
         </View>
     )
 
-}
+};
 
 
 const styles = StyleSheet.create({

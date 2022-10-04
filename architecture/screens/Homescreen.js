@@ -8,10 +8,11 @@ import { Customize } from './Customize';
 import { Profile } from './Profile';
 import { Notification } from './Notification';
 import { Ionicons } from '@expo/vector-icons';
+import { Theme } from '../thems/themes';
 
 const data = {
     favourites: [
-        { name: 'mozzarella', id: '1', price: '8,450', rating: 4.3, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1404/1404945.png' },
+        { name: 'mozzarella', id: '1', price: '8,450', rating: 4.3, thumbnail: 'https://images.pexels.com/photos/1260968/pexels-photo-1260968.jpeg?auto=compress&cs=tinysrgb&w=600' },
         { name: 'parmesan', id: '2', price: '7,250', rating: 2.4, thumbnail: 'https://cdn-icons-png.flaticon.com/512/432/432339.png' },
         { name: 'provolone', id: '3', price: '6,250', rating: 3.7, thumbnail: 'https://cdn-icons-png.flaticon.com/512/4039/4039232.png' },
         { name: 'blue cheese', id: '4', price: '4,950', rating: 4.5, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1699/1699852.png' },
@@ -129,14 +130,14 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: Theme.points[2]
+        paddingTop: Theme.points[2],
     },
     brand: {
         flexDirection: 'row',
         fontSize: 30,
     },
     brandName: {
-        fontSize: Theme.points[5],
+        fontSize: Theme.points[4],
         fontWeight: 'bold',
     },
     signinIcon: {
@@ -144,14 +145,14 @@ const styles = StyleSheet.create({
         height: 60,
     },
     search: {
-        marginVertical: Theme.points[3],
+        marginTop: Theme.points[3],
+        // paddingVertical:Theme.points[2],
+        paddingLeft:Theme.points[3],
+        borderWidth:1,
+        borderColor:Theme.colors.ui.secondary,
+        borderRadius:50,      
         backgroundColor: '#fff',
-        fontSize: Theme.points[3],
-        paddingVertical: Theme.points[3],
-        paddingLeft: Theme.points[3],
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: Theme.color.ui.secondary,
+        fontSize:Theme.points[3]
     },
 
     popularItem: {

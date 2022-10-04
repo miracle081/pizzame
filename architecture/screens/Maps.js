@@ -1,9 +1,15 @@
-import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { View, StyleSheet, Dimensions, Text, Titl } from "react-native";
 import styled from "styled-components/native";
 import MapView,{PROVIDER_GOOGLE} from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import  Constants  from "expo-constants";
+import { Theme } from "../thems/themes";
 
+const Title = styled(Text)`
+    color: ${Theme.colors.text.secondary};
+    margin-bottom: ${Theme.space[2]};
+    font-size: ${Theme.fonts.fontSize.title};
+`;
 
 const {width,height} = Dimensions.get('window');
 const ASPECT_RATIO = width/height;
@@ -20,9 +26,20 @@ export function Maps (){
     return(
         <>
             <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={INITIAL_POSITION}/>
-
             <View style={styles.mapAutoComplete}>
-                <GooglePlacesAutocomplete placeholder="Search"/>
+                
+                <GooglePlacesAutocomplete placeholder="Search"
+                    query={{
+                        key:'AIzaSyAltTdZ5mgwXmOAdeDKLqKf8OfJovDQWBI',
+                        language:'en',
+                    }}
+                    fetchDetails={true}
+                    enablePoweredByContainer={false}
+                    onPress={(data,details = null)=>{
+                        console.log(details.location.lat);
+                    }}
+                    minLength={2}
+                />
             </View>
         </>
     )
