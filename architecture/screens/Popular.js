@@ -23,6 +23,9 @@ export function Popular({ route, navigation }) {
         let mon = now.getMonth();
         let yr = now.getFullYear();
         let amp = "am";
+        if (min.lenght == 1) {
+            min = `0${min}`;
+        }
         if (hr > 12) {
             hr = hr - 12;
             amp = "pm";
@@ -44,14 +47,16 @@ export function Popular({ route, navigation }) {
             color:'green',
         })
             .then(() => {
-                Alert.alert(
-                    'Order Confirmation',
-                    'We have received your customized pizza order.',
-                    [{ text: 'Okay, Thanks', onPress: () => { navigation.navigate('Home') } }]
-                )
+                // Alert.alert(
+                //     'Order Confirmation',
+                //     'We have received your customized pizza order.',
+                //     [{ text: 'Okay, Thanks', onPress: () => { navigation.navigate('Home') } }]
+                // )
+                alert('We have received your customized pizza order')
             })
             .catch(error => console.log('Error received', error))
     }
+    
     return (
         <View style={styles.container}>
             <View style={styles.details}>
@@ -60,8 +65,6 @@ export function Popular({ route, navigation }) {
                     <Text style={styles.title}>{pizzaName}</Text>
 
                     <View style={styles.rating}>
-                        {/* <FontAwesomeIcon icon={faStar} color='#FF9F45' size={24} style={{ marginRight: 5 }} />
-                        <FontAwesomeIcon icon={faStarHalfStroke} color='#FF9F45' size={24} style={{ marginRight: 5 }} /> */}
                         <Rating value={pizzaRating} precision={0.1} readOnly />
                     </View>
                     <Text style={styles.price}> ₦{pizzaPrice}</Text>

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
-import { Card, TextInput, Title, Paragraph, Button } from 'react-native-paper';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, ScrollView, TextInput } from 'react-native';
+import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -9,27 +9,12 @@ import { Profile } from './Profile';
 import { Notification } from './Notification';
 import { Ionicons } from '@expo/vector-icons';
 import { Theme } from '../thems/themes';
-
-const data = {
-    favourites: [
-        { name: 'mozzarella', id: '1', price: '8,450', rating: 4.3, thumbnail: 'https://images.pexels.com/photos/1260968/pexels-photo-1260968.jpeg?auto=compress&cs=tinysrgb&w=600' },
-        { name: 'parmesan', id: '2', price: '7,250', rating: 2.4, thumbnail: 'https://cdn-icons-png.flaticon.com/512/432/432339.png' },
-        { name: 'provolone', id: '3', price: '6,250', rating: 3.7, thumbnail: 'https://cdn-icons-png.flaticon.com/512/4039/4039232.png' },
-        { name: 'blue cheese', id: '4', price: '4,950', rating: 4.5, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1699/1699852.png' },
-        { name: 'broccoli', id: '5', price: '3,050', rating: 1.3, thumbnail: 'https://cdn-icons-png.flaticon.com/512/1384/1384727.png' }
-    ],
-    bakersChoice: [
-        { name: 'pancetta', id: '6', note: 'Made with the finest Italian ingredients', thumbnail: 'https://images.pexels.com/photos/1146760/pexels-photo-1146760.jpeg' },
-        { name: 'speck', id: '7', note: 'Made with the finest Italian ingredients', thumbnail: 'https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg' },
-        { name: 'anchovies', id: '8', note: 'Made with the finest Italian ingredients', thumbnail: 'https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg' },
-        { name: 'zucchini', id: '9', note: 'Made with the finest Italian ingredients', thumbnail: 'https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg' },
-        { name: 'pancetta', id: '10', note: 'Made with the finest Italian ingredients', thumbnail: 'https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg' }
-    ]
-}
+import { Rating } from '@mui/material';
+import {data} from "../components/pizzaData"
 
 function HomeScreen({ navigation }) {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
 
             <View style={styles.header}>
                 <View style={styles.brand}>
@@ -67,17 +52,30 @@ function HomeScreen({ navigation }) {
                 <FlatList data={data.bakersChoice} renderItem={({ item }) => {
                     return (
                         <Card style={{ marginBottom: 10 }}>
-                            <Card.Cover source={{ so: item.thumbnail }} />
+                            <Card.Cover source={{ uri: item.thumbnail }} />
                             <Card.Content>
-                                <Title>{item.name}</Title>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ fontWeight: 'bold', color: 'gray', fontSize: 20, textTransform: 'capitalize' }} fontWeight='bold'>{item.name}</Text>
+                                    <Rating value={item.rating} precision={0.1} readOnly />
+                                </View>
                                 <Paragraph>{item.note}</Paragraph>
-                                <Button mode='contained' color='coral'>Order</Button>
                             </Card.Content>
+                            <Card.Actions style={{ justifyContent:'space-between',flexDirection:'row', marginEnd: 10 }}>
+                                <Text style={styles.price}>₦{item.price}</Text>
+                                <Button mode='contained' color='coral' onPress={() => {
+                                    navigation.navigate('Popular', {
+                                        pizzaImg: item.thumbnail,
+                                        pizzaName: item.name,
+                                        pizzaRating: item.rating,
+                                        pizzaPrice: item.price
+                                    })
+                                }}>Order now</Button>
+                            </Card.Actions>
                         </Card>
                     );
                 }} key={({ item }) => { item.id }} />
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -124,7 +122,7 @@ export function Home() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         flex: 1
     },
     header: {
@@ -141,35 +139,46 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     signinIcon: {
-        width: 60,
-        height: 60,
+        width: 70,
+        height: 70,
+    },
+    price: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'green',
     },
     search: {
         marginTop: Theme.points[3],
-        // paddingVertical:Theme.points[2],
-        paddingLeft:Theme.points[3],
-        borderWidth:1,
-        borderColor:Theme.colors.ui.secondary,
-        borderRadius:50,      
+        paddingVertical: Theme.points[2],
+        paddingLeft: Theme.points[3],
+        borderWidth: 1,
+        borderColor: Theme.colors.ui.secondary,
+        borderRadius: 50,
         backgroundColor: '#fff',
-        fontSize:Theme.points[3]
+        fontSize: 20
     },
 
     popularItem: {
         width: 120,
         height: 120,
         padding: 18,
-        backgroundColor: '#FF9F45',
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
         marginRight: 15,
+        borderColor:'#FF9F45',
+        borderWidth:2,
+        borderRadius:10,
     },
     popularItemText: {
         fontWeight: 'bold',
+        textTransform:'capitalize',
+        color:'gray'
     },
     popularHeadingText: {
         fontSize: 30,
-        marginVertical: 20,
+        marginTop: 20,
+        marginBottom:5
     }
 
 })
